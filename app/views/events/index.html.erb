@@ -1,5 +1,11 @@
 <h1>Eventdark</h1>
+
 <ul>
-  <%= render @events %>
+  <% @events.each do |event| %>
+    <li>
+      <%= link_to event.name, event%>
+    </li>
+  <% end %>
 </ul>
 
+<%= link_to "New Event", new_event_path %>

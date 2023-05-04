@@ -1,0 +1,17 @@
+<%= form_with model: @event do |form| %>
+  <%= form.label(:name, "Event Name") %>
+  <%= form.text_field(:name, placeholder: "Event Name") %>
+  <br><br>
+  <%= form.label(:description, "Event Description") %>
+  <%= form.text_area(:description, placeholder: "Event Description") %>
+  <br><br>
+  <%= form.label(:date, "Event Date") %>
+  <%= form.text_area(:date, placeholder: "Event Date") %>
+  <br><br>
+  <%= form.label(:location, "Event Locationj") %>
+  <%= form.text_area(:location, placeholder: "Event Location") %>
+  <br><br>
+  <%= form.submit "Create" %>
+<% end %>
+<br><br>
+<%= link_to "Back to home",   root_path %>
