@@ -1,0 +1,17 @@
+<%= render "shared/user_banner" %>
+<h1>Profile</h1>
+<h3>Name: <%= @user.name %></h3>
+<h3>Email: <%= @user.email %></h3>
+<h3>Upcoming Events: </h3>
+<ul>
+  <% @user.attended_events.where("date >= ?", Date.today).each do |event| %>
+    <li><%= event.name %></li>
+  <% end %>
+</ul>
+<h3>Past Events: </h3>
+<ul>
+  <% @user.attended_events.where("date < ?", Date.today).each do |event| %>
+    <li><%= event.name %></li>
+  <% end %>
+</ul>
+<%= link_to "Back to home", root_path %>

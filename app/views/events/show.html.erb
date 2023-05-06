@@ -1,9 +1,36 @@
+<%= render "shared/user_banner" %>
+
 <h1><%= @event.name %></h1>
 
 <p><%= @event.description %></p>
 
-<p><%= @event.date %></p>
+<h4>Date: <%= @event.date %></h4>
 
-<p><%= @event.location %></p>
+<h4>Location: <%= @event.location %></h4>
+
+<h4>Organized by: <%= @event.creator.name %></h4>
+
+<% if user_signed_in? && current_user.attended_events.exists?(@event.id) %>
+  <button type="button"><%= link_to "Cancel", event_attendance_path(@event.id), data: {
+      turbo_method: :delete,
+      turbo_confirm: "Are you sure?"
+    } %></button>
+<% elsif user_signed_in? %>
+  <%= form_with model: EventAttendance.new do |form| %>
+    <%= form.hidden_field(:attended_event_id, value: @event.id) %>
+    <%= form.hidden_field(:attendee_id, value: current_user.id) %>
+    <%= form.submit "Join Event" %>
+  <% end %>
+<% else %>
+  <button type="button"><%= link_to "Login to join", new_user_session_path %></button>
+<% end %>
+
+<h3>Attendees</h3>
+<ul>
+<% EventAttendance.where(attended_event_id: @event.id).each do |attendance| %>
+  <li><%=link_to attendance.attendee.name, attendance.attendee %></li>
+<% end %>
+</ul>
+
 
 <%= link_to "Back to home", root_path %>

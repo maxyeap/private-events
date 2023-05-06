@@ -1,3 +1,4 @@
+<%= render "shared/user_banner" %>
 <%= form_with model: @event do |form| %>
   <%= form.label(:name, "Event Name") %>
   <%= form.text_field(:name, placeholder: "Event Name") %>
@@ -6,9 +7,9 @@
   <%= form.text_area(:description, placeholder: "Event Description") %>
   <br><br>
   <%= form.label(:date, "Event Date") %>
-  <%= form.text_area(:date, placeholder: "Event Date") %>
+  <%= form.date_select :date %>
   <br><br>
-  <%= form.label(:location, "Event Locationj") %>
+  <%= form.label(:location, "Event Location") %>
   <%= form.text_area(:location, placeholder: "Event Location") %>
   <br><br>
   <%= form.submit "Create" %>

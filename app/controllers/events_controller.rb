@@ -22,6 +22,8 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:name, :description, :date, :location)
+    params.require(:event).permit(:name, :description, :date,
+                                  :location).merge(date: Date.new(params['event']['date(1i)'].to_i, params['event']['date(2i)'].to_i,
+                                                                  params['event']['date(3i)'].to_i))
   end
 end
