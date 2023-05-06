@@ -10,7 +10,9 @@
 
 <h4>Organized by: <%= @event.creator.name %></h4>
 
-<% if user_signed_in? && current_user.attended_events.exists?(@event.id) %>
+<% if Event.past.exists?(@event.id) %>
+  <button type="button" disabled>Event is over</button>
+<% elsif user_signed_in? && current_user.attended_events.exists?(@event.id) %>
   <button type="button"><%= link_to "Cancel", event_attendance_path(@event.id), data: {
       turbo_method: :delete,
       turbo_confirm: "Are you sure?"
