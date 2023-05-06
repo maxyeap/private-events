@@ -13,10 +13,11 @@
 <% if Event.past.exists?(@event.id) %>
   <button type="button" disabled>Event is over</button>
 <% elsif user_signed_in? && current_user.attended_events.exists?(@event.id) %>
-  <button type="button"><%= link_to "Cancel", event_attendance_path(@event.id), data: {
-      turbo_method: :delete,
+  <%= form_with url: event_attendance_path(@event.id), method: :delete do |form| %>
+    <%= form.submit "Cancel", data: {
       turbo_confirm: "Are you sure?"
-    } %></button>
+    } %>
+  <% end %>
 <% elsif user_signed_in? %>
   <%= form_with model: EventAttendance.new do |form| %>
     <%= form.hidden_field(:attended_event_id, value: @event.id) %>
